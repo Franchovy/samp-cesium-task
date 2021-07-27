@@ -1,15 +1,15 @@
 import styles from "./App.css";
 
 export async function fetchCityCoordinates(city) {
-    try {
-        const result = await fetch(
-          `https://nominatim.openstreetmap.org/search?city=${city}`
-        );
-        const data = await result.json();
-        return data;
-      } catch (e) {
-        return null;
-      }
+  try {
+    const result = await fetch(
+      `https://nominatim.openstreetmap.org/search?city=${city}`
+    );
+    const data = await result.json();
+    return data;
+  } catch (e) {
+    return null;
+  }
 }
 
 export default function CreateBillboardButton(props) {
