@@ -1,16 +1,22 @@
 import React from "react";
 
-import { Cartesian3 } from "cesium";
 import { Viewer } from "resium";
 import Billboards from "./billboards";
+import CreateBillboardForm from "./createBillboardForm"
 
 
-const App = () => (
-  <Viewer full>
-    <Billboards items={[{uid: "test5", position: Cartesian3.fromDegrees(30, 30, 100)}]}/>
-    
-  </Viewer>
-);
+const App = () => {
+  const viewer = React.useRef(null);
+  return (
+    <div>
+      <CreateBillboardForm/>
+      <Viewer ref={viewer} homeButton={false}>
+        <Billboards/>
+      </Viewer>
+    </div>
+  );
+      
+};
 
 
 export default App;

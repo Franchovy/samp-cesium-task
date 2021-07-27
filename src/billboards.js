@@ -6,7 +6,6 @@ import logo from './logo.svg';
 
 
 
-
 export default class Billboards extends React.Component {
     constructor(props) {
         super(props);
@@ -33,6 +32,7 @@ export default class Billboards extends React.Component {
    render() {
        return this.state.items.map(
            e => <Entity
+           key={e.uid}
            name={e.uid}
            position={e.position}
            >
