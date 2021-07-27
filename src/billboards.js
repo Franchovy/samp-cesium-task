@@ -8,16 +8,6 @@ import logo from './logo.svg';
 
 
 export default class Billboards extends React.Component {
-static pointData = {
-    color: {
-      alpha: 1,
-      blue: 0,
-      green: 1,
-      red: 1
-    },
-    pixelSize: 15
-  };
-
     constructor(props) {
         super(props);
 
@@ -44,18 +34,13 @@ static pointData = {
        return this.state.items.map(
            e => <Entity
            name={e.uid}
-           point={Billboards.pointData}
-           show={true}
-           position={e.position}>
+           position={e.position}
+           >
             <LabelGraphics
             text={e.uid}
             />
             <BillboardGraphics
-                
                 image={logo}
-                scale={1.0}
-                
-                show={true}
             />
         </Entity>);
         
