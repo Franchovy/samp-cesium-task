@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "babel-jest": "^27.0.6",
     "cesium": "^1.83.0",
     "craco-cesium": "^1.2.0",
     "react": "^17.0.2",
@@ -18,7 +19,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
+    "test": "jest tests",
     "eject": "react-scripts eject",
     "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
   },
@@ -41,7 +42,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.8",
+    "@babel/preset-react": "^7.14.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "2.3.2"
+    "jest": "^27.0.6",
+    "prettier": "2.3.2",
+    "react-test-renderer": "^17.0.2"
   }
 }
