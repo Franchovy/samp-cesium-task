@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Cartesian3} from 'cesium';
 import {Entity} from 'resium';
 
@@ -7,7 +7,6 @@ import {Entity} from 'resium';
 export default class Billboards extends React.Component {
 
     static pointGraphics = { pixelSize: 10 };
-    static testPosition = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
 
     constructor(props) {
         super(props);
@@ -17,17 +16,21 @@ export default class Billboards extends React.Component {
         const position1 = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
         const position2 = Cartesian3.fromDegrees(74.0707383, 40.7117244, 100);
         const position3 = Cartesian3.fromDegrees(-74.0707383, -40.7117244, 100);
+        const position4 = Cartesian3.fromDegrees(74.0707383, -40.7117244, 100);
 
         const testItems = [
         {uid: "test1", position: position1},
+        {uid: "test2", position: position2},
+        {uid: "test3", position: position3},
+        {uid: "test4", position: position4},
         ];
           
         this.state = {
-            items: testItems
+            items: [...testItems, ...props.items ?? []]
         };
     }
 
    render() {
-       return <Entity position={Billboards.testPosition} point={Billboards.pointGraphics} />;
+       return this.state.items.map(e => <Entity key={e.uid} position={e.position} point={Billboards.pointGraphics} />);
    } 
 }
