@@ -34,3 +34,17 @@
   flex-direction: row;
   height: 100px;
 }
+
+.createBillboard-container {
+  padding: 15 15 15 15;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.createBillboard-button {
+  
+  font-weight: bold;
+}
