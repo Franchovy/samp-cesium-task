@@ -1,5 +1,17 @@
 import styles from "./App.css";
 
+export async function fetchCityCoordinates(city) {
+    try {
+        const result = await fetch(
+          `https://nominatim.openstreetmap.org/search?city=${city}`
+        );
+        const data = await result.json();
+        return data;
+      } catch (e) {
+        return null;
+      }
+}
+
 export default function CreateBillboardButton(props) {
   function handleButtonClick() {
     const enteredName = prompt("Please enter a unique name for your billboard");
@@ -17,7 +29,7 @@ export default function CreateBillboardButton(props) {
       if (errorText !== null) alert("Error: " + errorText);
 
       // if Valid:
-      props.addBillboard(enteredName, enteredCity);
+      props.onButtonPressed(enteredName, enteredCity);
     }
   }
 
