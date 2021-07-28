@@ -1,4 +1,4 @@
-# SAMP.AI: CESIUM Billboards task
+# SAMP.AI: Cesium Billboards task
 
 ##### Submission by Maxime Franchot, 28 July 2021
 
