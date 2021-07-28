@@ -1,10 +1,8 @@
 import React from "react";
-import BillboardMaker from './billboardMaker';
+import BillboardMaker from "./billboardMaker";
 
 const App = () => {
-  return (
-    <BillboardMaker/>
-  );
+  return <BillboardMaker />;
 };
 
 export default App;

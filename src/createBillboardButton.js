@@ -1,6 +1,6 @@
 import styles from "./App.css";
 
-import Billboards from './billboards';
+import Billboards from "./billboards";
 
 export async function fetchCityCoordinates(city) {
   try {
@@ -8,75 +8,93 @@ export async function fetchCityCoordinates(city) {
       `https://nominatim.openstreetmap.org/search?city=${city}&format=json`
     );
     const data = await result.json();
-    
+
     if (data.length === 0) {
       // No match
-      return {"error": {"message": "no match found"}};
+      return { error: { message: "no match found" } };
     }
 
     const coords = {
-      latitude: parseFloat(data[0].lat), 
-      longitude: parseFloat(data[0].lon)
+      latitude: parseFloat(data[0].lat),
+      longitude: parseFloat(data[0].lon),
     };
-    
-    return {"error": null, coords: coords};
-  } catch (e) {
 
+    return { error: null, coords: coords };
+  } catch (e) {
     console.log(`Other error: ${e.json()}`);
     // Other error occured
-    return {"error": {"message": e.message}};
+    return { error: { message: e.message } };
   }
 }
 
 function toTitleCase(str) {
-  return str.replace(
-    /(\w*\W*|\w*)\s*/g,
-    function(txt) {
-    return(txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
-    }
-  ); 
+  return str.replace(/(\w*\W*|\w*)\s*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
 }
 
 export default function CreateBillboardButton(props) {
-
   /** Function to be called to handle click 
    /* Accept input from user through prompts
    /* Validate input 
    /* @return billboard info
   */
   async function handleButtonClick() {
-    
     // Input prompts for user
     const enteredName = prompt("Please enter a unique name for your billboard");
     if (enteredName === null) return; // Do not continue prompt on cancel.
-    
+
     const enteredCity = prompt("Please enter a city name");
     if (enteredCity === null) return; // Do not continue prompt on cancel.
 
-    
     if (enteredName !== null && enteredCity !== null) {
       var error;
 
       // Validate input: One or more fields are empty
       if (enteredName === "")
-        error = { "error": {"message": "You must enter a unique name for your billboard.", "code": "EMPTY_FIELD"}};
+        error = {
+          error: {
+            message: "You must enter a unique name for your billboard.",
+            code: "EMPTY_FIELD",
+          },
+        };
       if (enteredCity === "")
-        error = { "error": {"message": "You must enter a city for your billboard.", "code": "EMPTY_FIELD"}};
-        
+        error = {
+          error: {
+            message: "You must enter a city for your billboard.",
+            code: "EMPTY_FIELD",
+          },
+        };
+
       // Check for error: Name not unique
       if (!props.checkNameUnique(enteredName)) {
-        error = { "error": {"message": "The name for your billboard must be unique.", "code": "NAME_NOT_UNIQUE"}};
+        error = {
+          error: {
+            message: "The name for your billboard must be unique.",
+            code: "NAME_NOT_UNIQUE",
+          },
+        };
       }
 
       // Fetch city coordinates
       var fetchCityResult = await fetchCityCoordinates(enteredCity);
       console.log(`Result: ${JSON.stringify(fetchCityResult)}`);
-      
+
       if (fetchCityResult.error !== null) {
         if (fetchCityResult.error.message === "no match found") {
-          error = { "error": {"message": "No match found for the city you entered.", "code": "CITY_NOT_FOUND"}};
+          error = {
+            error: {
+              message: "No match found for the city you entered.",
+              code: "CITY_NOT_FOUND",
+            },
+          };
         } else {
-          error = {"error": {"message": fetchCityResult.error.message, "code": "OTHER_ERROR"}};
+          error = {
+            error: {
+              message: fetchCityResult.error.message,
+              code: "OTHER_ERROR",
+            },
+          };
         }
       }
 
@@ -86,15 +104,14 @@ export default function CreateBillboardButton(props) {
         props.onButtonPressed(error);
         return;
       }
-      
-      // Else 
+
+      // Else
       // Process result into data for billboard
-      props.onButtonPressed(
-        {
-          uid: enteredName,
-          city: toTitleCase(enteredCity), 
-          coords: fetchCityResult.coords
-        });
+      props.onButtonPressed({
+        uid: enteredName,
+        city: toTitleCase(enteredCity),
+        coords: fetchCityResult.coords,
+      });
     }
   }
 
