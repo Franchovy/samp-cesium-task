@@ -23,19 +23,20 @@ export default function BillboardContainer(props) {
   }
 
   // add billboard function
-  function addBillboard(cityName, uid) {
+  function addBillboard(result) {
     setBillboards([
       ...billboards,
       {
-        uid: cityName,
-        position: Cartesian3.fromDegrees(24.0707383, -70.7117244, 100),
+        uid: result.uid,
+        city: result.city,
+        position: Cartesian3.fromDegrees(result.coords.longitude, result.coords.latitude, 1),
       },
     ]);
   }
 
   return (
     <div>
-      <CreateBillboardButton addBillboard={addBillboard} />
+      <CreateBillboardButton onButtonPressed={addBillboard} />
       <Billboards items={billboards} />
     </div>
   );

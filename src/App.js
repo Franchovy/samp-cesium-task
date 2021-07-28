@@ -8,6 +8,7 @@ const App = () => {
   return (
     <div>
       <Viewer ref={viewer} homeButton={false}>
+      <div style={{ position:"absolute", top: 0, left: 0 }}><button onClick={() => console.log("aaaa")}>Click me</button></div>
         <BillboardContainer />
       </Viewer>
     </div>
