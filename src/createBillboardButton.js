@@ -19,7 +19,6 @@ export async function fetchCityCoordinates(city) {
 
     return { error: null, coords: coords };
   } catch (e) {
-    console.log(`Other error: ${e.json()}`);
     // Other error occured
     return { error: { message: e.message } };
   }
@@ -76,7 +75,6 @@ export default function CreateBillboardButton(props) {
 
       // Fetch city coordinates
       var fetchCityResult = await fetchCityCoordinates(enteredCity);
-      console.log(`Result: ${JSON.stringify(fetchCityResult)}`);
 
       if (fetchCityResult.error !== null) {
         if (fetchCityResult.error.message === "no match found") {
@@ -114,10 +112,8 @@ export default function CreateBillboardButton(props) {
   }
 
   return (
-    <div className="createBillboard-container">
-      <button className="createBillboard-button" onClick={handleButtonClick}>
-        Enter
-      </button>
-    </div>
+    <button className="createBillboard-button" onClick={handleButtonClick}>
+      Create Billboard
+    </button>
   );
 }

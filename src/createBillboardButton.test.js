@@ -15,7 +15,7 @@ describe("UI functionality check", () => {
       <CreateBillboardButton onButtonPressed={onClick} />
     );
 
-    fireEvent.click(getByText(/Enter/i));
+    fireEvent.click(getByText(/Create Billboard/i));
 
     expect(onClick).toHaveBeenCalled();
   });

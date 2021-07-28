@@ -35,15 +35,31 @@
   height: 100px;
 }
 
-.createBillboard-container {
-  padding: 15 15 15 15;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
 .createBillboard-button {
   font-weight: bold;
+  font-size: large;
+  color: #e2f9ff;
+
+  margin-top: 8px;
+  margin-left: 8px;
+
+  padding: 3px 15px;
+
+  background-color: #313336;
+  border-style: solid;
+  outline: none;
+
+  border-width: 2px;
+  border-color: #444444;
+
+  border-radius: 5px;
+}
+
+.createBillboard-button:hover {
+  border-color: #16667c;
+}
+
+.createBillboard-button:active {
+  background-color: #16667c;
+  border-color: rgb(111, 161, 204);
 }
