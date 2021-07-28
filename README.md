@@ -67,11 +67,11 @@ This allowed for the following functionality:
 they are passed up the to BillboardMaker which will display those alerts to the user.
 
 **Billboard** Component used the following Cesium components:
-<Entity>
-  <EntityDescription/>
-  <LabelGraphics/>
-  <BillboardGraphics/>
-</Entity>
+\<Entity>
+  \<EntityDescription/>
+  \<LabelGraphics/>
+  \<BillboardGraphics/>
+\</Entity>
     
 And contains the following features:
 - "Location icon" through billboard graphics
