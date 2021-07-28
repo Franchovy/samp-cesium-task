@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# SAMP.AI: CESIUM Billboards task
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##### Submission by Maxime Franchot, 28 July 2021
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
+### Example Recording
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+# Documentation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Contents
+- Development Methodology
+- Technical Choices
+- Design
+- Tests
+- Deployment / Packaging
+- Documentation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Tech Stack
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The Following Tech stack was chosen:
+- **ReactJS** for Web Development
+- CRA (Create-React-App) for fast deployment, and includes multiple packages needed
+- **Craco-Cesium** for use of Cesium framework within CRA
+- **Resium** for Cesium React components
+- **Jest** and **React Testing Library** for testing
 
-## Learn More
+The stack presented the following upsides and downsides:
+**Upsides:**
+- ReactJS, along with Craco + Resium allowed for intuitive prototyping of reusable components.
+- Resium being a superset framework of Cesium contains all its functionality
+- Native Hot-Reloading for fast development
+- CRA contains webpack & babel
+- Most personal experience using React compared to Angular/Vue
+- React Testing Library and Jest, being native to React minimized package issues
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Downsides:**
+- Craco was last updated 2 years ago. This caused package dependency issues regarding webpack and more.
+- Cesium UI was made with knockoutJS thus could not add native cesium components.
+- Testing framework was limited in functionality compared to Karma+Jasmine.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### Application Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The application components followed the following structure:
 
-### Analyzing the Bundle Size
+- App (App.js)
+  - BillboardMaker (billboardMaker.js)
+    - Viewer (resium)
+      - CreateBillboardButton (createBillboardButton.js)
+      - [list] Billboards (createBillboardButton.js)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This allowed for the following functionality:
+- **BillboardMaker** manages all billboards' data.
+- **BillboardMaker** has **CreateBillboardButton** manage user input and validation, and uses callback to add new billboards
+- *billboardData* is stored in **BillboardMaker** class state.
+- **CreateBillboardButton** is given access to parent "check if name is unique" callback
 
-### Making a Progressive Web App
+**Billboard** Component used the following Cesium components:
+<Entity>
+  <EntityDescription/>
+  <LabelGraphics/>
+  <BillboardGraphics/>
+</Entity>
+    
+And contains the following features:
+- "Location icon" through billboard graphics
+- label displays **"billboard UID | city name"**
+- Description displayed in side bar on press (resium for JSX)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Visual Design
 
-### Advanced Configuration
+The visual design was inspired by the styling of the cesium app: dark grey/black, white text, blue for interface.
+The earth icon was selected for its relevance. The locator icon was selected for its contrast and simplicity.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Tests
 
-### Deployment
+The following testing classes are available:
+- billboardMaker.test.js
+- createBillboardButton.test.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The testing was separated into UI/UX functionality like rendering and button clicks, from mock/API and pure functionality testing.
 
-### `yarn build` fails to minify
+### Deployment / Packaging
+- Code is published on github
+- Build available through **npm run build** (craco build)
+- web app available on
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Documentation
+The documentation was written as specification for both developers and non-developers. 
+
+#### Future Developments
+
+Next steps would include:
+[ ] (testing) fix testing compatability with updated file structure.
+[ ] (testing) Complete tests in billboardMaker.test.js
+[ ] (testing) Add UI tests for Billboard component
+[ ] (functionality) Focus Viewer camera on new billboard when added
+[ ] (functionality) Providing React UI for user input instead & live validation instead of prompts
