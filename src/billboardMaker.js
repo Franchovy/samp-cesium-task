@@ -22,10 +22,10 @@ export default class BillboardMaker extends React.Component {
     const position4 = Cartesian3.fromDegrees(74.0707383, -40.7117244, 100);
 
     return [
-      { uid: "test1", city: "city", position: position1 },
-      { uid: "test2", city: "city", position: position2 },
-      { uid: "test3", city: "city", position: position3 },
-      { uid: "test4", city: "city", position: position4 },
+      { uid: "test1", city: "city", position: position1, creationDate: new Date() },
+      { uid: "test2", city: "city", position: position2, creationDate: new Date() },
+      { uid: "test3", city: "city", position: position3, creationDate: new Date() },
+      { uid: "test4", city: "city", position: position4, creationDate: new Date() },
     ];
   }
 
@@ -50,6 +50,7 @@ export default class BillboardMaker extends React.Component {
             result.coords.latitude,
             1
           ),
+          creationDate: new Date()
         },
       ],
     });
