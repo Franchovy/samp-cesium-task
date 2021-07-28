@@ -6,29 +6,28 @@ import Billboard from "./billboard";
 import CreateBillboardButton from "./createBillboardButton";
 import { Cartesian3 } from "cesium";
 
-
 /**
  * (Main) Component class containing Resium Viewer, Create Billboard button,
  * and Billboard children components
- * 
+ *
  * @props - none
- * 
+ *
  * @property state.billboardData contains data representing all billboards
- * currently in the viewer. 
- * 
- * @method checkNameUnique checks name against all current billboards from 
+ * currently in the viewer.
+ *
+ * @method checkNameUnique checks name against all current billboards from
  * billboardData for uniqueness. Returns true if name is not found.
- * 
- * @method addBillboard takes in object with data 
+ *
+ * @method addBillboard takes in object with data
  * {
- *  uid, 
+ *  uid,
  *  city,
- *  coords: 
+ *  coords:
  *      {
- *      latitude, 
+ *      latitude,
  *      longitude
- *      }, 
- *  error: 
+ *      },
+ *  error:
  *      {
  *      message,
  *      code
@@ -36,7 +35,7 @@ import { Cartesian3 } from "cesium";
  * }
  * which is then transformed into billboard data object representing the creation
  * of a new billboard component.
- * 
+ *
  * @return <BillboardMaker>
  *    <div>
  *      <Viewer>

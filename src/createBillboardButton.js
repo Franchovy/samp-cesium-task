@@ -1,41 +1,37 @@
 import styles from "./App.css";
 
-export async function fetchCityCoordinates(city) {
-  try {
-    const result = await fetch(
-      `https://nominatim.openstreetmap.org/search?city=${city}&format=json`
-    );
-    const data = await result.json();
+import fetchCityCoordinates from "./utilities/fetchCityCoordinates";
+import toTitleCase from "./utilities/stringFormatter";
 
-    if (data.length === 0) {
-      // No match
-      return { error: { message: "no match found" } };
-    }
-
-    const coords = {
-      latitude: parseFloat(data[0].lat),
-      longitude: parseFloat(data[0].lon),
-    };
-
-    return { error: null, coords: coords };
-  } catch (e) {
-    // Other error occured
-    return { error: { message: e.message } };
-  }
-}
-
-function toTitleCase(str) {
-  return str.replace(/(\w*\W*|\w*)\s*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
-
+/**
+ * Button Component function to add more billboards to the viewer.
+ * Onclick, prompt user input for *unique identifier* and *city name*
+ *
+ * @props
+ * *checkNameUnique* - validator function for identifier/name uniqueness
+ * *onButtonPressed* - callback for when a new billboard is submitted (or error).
+ */
 export default function CreateBillboardButton(props) {
-  /** Function to be called to handle click 
-   /* Accept input from user through prompts
-   /* Validate input 
-   /* @return billboard info
-  */
+
+  /** Callback to be called to handle click
+   * Accept input from user through prompts,
+   * validate input according to rules,
+   * @return *billboard data* or *error*
+   * {
+   *  uid,
+   *  city,
+   *  coords:
+   *      {
+   *      latitude,
+   *      longitude
+   *      },
+   *  error:
+   *      {
+   *      message,
+   *      code
+   *      }
+   * }
+   */
   async function handleButtonClick() {
     // Input prompts for user
     const enteredName = prompt("Please enter a unique name for your billboard");

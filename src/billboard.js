@@ -19,15 +19,15 @@ const fadeScalar = new NearFarScalar(7000000.0, 1.0, 30000000.0, 0.2);
  * Component for rendering resium Billboard inside a Viewer.
  * Rendered through *Entity* Component containing *EntityDescription*,
  * *BillboardGraphics* (location marker icon), *LabelGraphics* (name + ?city)
- * 
+ *
  * @props
  * *uid* - unique name for billboard
  * *city* - name of city where billboard is positioned
  * *creationDate* - JS Date object marking creation datetime
  * *position* - Cesium Cartesian3 object marking location on globe
- * *showCityLabel* - bool indicating whether label should display city 
+ * *showCityLabel* - bool indicating whether label should display city
  * as well as unique name
- * 
+ *
  * @return <Entity key=uid name=uid>
  *  <EntityDescription/>
  *  <BillboardGraphics/>
