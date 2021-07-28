@@ -2,7 +2,7 @@ import React from "react";
 
 import { Viewer } from "resium";
 
-import Billboard from "./billboards";
+import Billboard from "./billboard";
 import CreateBillboardButton from "./createBillboardButton";
 import { Cartesian3 } from "cesium";
 
