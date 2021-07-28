@@ -6,12 +6,7 @@
 
 ### Example Recording
 
-
-
-
-
-
-
+![Example Recording](samp.gif)
 
 
 # Documentation
@@ -24,8 +19,11 @@
 - Deployment / Packaging
 - Documentation
 
+### Development Methodology
 
-### Tech Stack
+No specific methodology was used. 
+
+### Technical Choices
 
 The Following Tech stack was chosen:
 - **ReactJS** for Web Development
@@ -60,10 +58,10 @@ The application components followed the following structure:
       - [list] Billboards (createBillboardButton.js)
 
 This allowed for the following functionality:
-- **BillboardMaker** manages all billboards' data.
-- **BillboardMaker** has **CreateBillboardButton** manage user input and validation, and uses callback to add new billboards
-- *billboardData* is stored in **BillboardMaker** class state.
-- **CreateBillboardButton** is given access to parent "check if name is unique" callback
+- BillboardMaker manages all billboards' data.
+- BillboardMaker has CreateBillboardButton manage user input and validation, and uses callback to add new billboards
+- billboardData is stored in BillboardMaker class state.
+- CreateBillboardButton is given access to parent "check if name is unique" callback, which uses billboardData
 
 **Billboard** Component used the following Cesium components:
 <Entity>
@@ -79,7 +77,7 @@ And contains the following features:
 
 ### Visual Design
 
-The visual design was inspired by the styling of the cesium app: dark grey/black, white text, blue for interface.
+The visual design was inspired by the styling of the cesium app: dark grey/black, white text, light blue for highlighting.
 The earth icon was selected for its relevance. The locator icon was selected for its contrast and simplicity.
 
 ### Tests
@@ -101,8 +99,8 @@ The documentation was written as specification for both developers and non-devel
 #### Future Developments
 
 Next steps would include:
-[ ] (testing) fix testing compatability with updated file structure.
-[ ] (testing) Complete tests in billboardMaker.test.js
-[ ] (testing) Add UI tests for Billboard component
-[ ] (functionality) Focus Viewer camera on new billboard when added
-[ ] (functionality) Providing React UI for user input instead & live validation instead of prompts
+- [ ] (testing) fix testing compatability with updated file structure.
+- [ ] (testing) Complete tests in billboardMaker.test.js
+- [ ] (testing) Add UI tests for Billboard component
+- [ ] (functionality) Focus Viewer camera on new billboard when added
+- [ ] (functionality) Providing React UI for user input instead & live validation instead of prompts
