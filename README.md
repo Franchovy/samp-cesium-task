@@ -63,6 +63,9 @@ This allowed for the following functionality:
 - billboardData is stored in BillboardMaker class state.
 - CreateBillboardButton is given access to parent "check if name is unique" callback, which uses billboardData
 
+**Error handling** is done inside the CreateBillboardButton component, which handles user input and validation, and if any errors occur,
+they are passed up the to BillboardMaker which will display those alerts to the user.
+
 **Billboard** Component used the following Cesium components:
 <Entity>
   <EntityDescription/>
