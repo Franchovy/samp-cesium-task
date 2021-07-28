@@ -22,10 +22,10 @@ export default class BillboardMaker extends React.Component {
     const position4 = Cartesian3.fromDegrees(74.0707383, -40.7117244, 100);
 
     return [
-      { uid: "test1", position: position1 },
-      { uid: "test2", position: position2 },
-      { uid: "test3", position: position3 },
-      { uid: "test4", position: position4 },
+      { uid: "test1", city: "city", position: position1 },
+      { uid: "test2", city: "city", position: position2 },
+      { uid: "test3", city: "city", position: position3 },
+      { uid: "test4", city: "city", position: position4 },
     ];
   }
 
@@ -74,7 +74,7 @@ export default class BillboardMaker extends React.Component {
             />
           </div>
           {this.state.billboardData.map((e) => (
-            <Billboard {...e} />
+            <Billboard {...e} showCityLabel={true} />
           ))}
         </Viewer>
       </div>
