@@ -45,9 +45,15 @@ export default function CreateBillboardButton(props) {
    /* @return billboard info
   */
   async function handleButtonClick() {
+    
+    // Input prompts for user
     const enteredName = prompt("Please enter a unique name for your billboard");
+    if (enteredName === null) return; // Do not continue prompt on cancel.
+    
     const enteredCity = prompt("Please enter a city name");
+    if (enteredCity === null) return; // Do not continue prompt on cancel.
 
+    
     if (enteredName !== null && enteredCity !== null) {
       var error;
 
@@ -58,10 +64,7 @@ export default function CreateBillboardButton(props) {
         error = { "error": {"message": "You must enter a city for your billboard.", "code": "EMPTY_FIELD"}};
         
       // Check for error: Name not unique
-      if (Billboards.instance === null) {
-        console.log("Billboards static instance is null");
-      } else
-      if (!Billboards.instance.containsUniqueID(enteredName)) {
+      if (!props.checkNameUnique(enteredName)) {
         error = { "error": {"message": "The name for your billboard must be unique.", "code": "NAME_NOT_UNIQUE"}};
       }
 
