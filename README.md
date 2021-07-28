@@ -9,6 +9,8 @@
 ![Example Recording](samp.gif)
 
 
+##### Web app available on [mf-samp](https://mf-samp.web.app/)
+
 # Documentation
 
 ## Contents
