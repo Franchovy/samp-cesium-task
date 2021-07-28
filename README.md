@@ -65,15 +65,8 @@ This allowed for the following functionality:
 
 **Error handling** is done inside the CreateBillboardButton component, which handles user input and validation, and if any errors occur,
 they are passed up the to BillboardMaker which will display those alerts to the user.
-
-**Billboard** Component used the following Cesium components:
-\n\<Entity>
-\n  \<EntityDescription/>
-\n  \<LabelGraphics/>
-\n  \<BillboardGraphics/>
-\n\</Entity>
     
-And contains the following features:
+**Billboard** component contains the following features:
 - "Location icon" through billboard graphics
 - label displays **"billboard UID | city name"**
 - Description displayed in side bar on press (resium for JSX)
