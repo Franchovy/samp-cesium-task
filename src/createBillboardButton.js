@@ -1,7 +1,5 @@
 import styles from "./App.css";
 
-import Billboards from "./billboards";
-
 export async function fetchCityCoordinates(city) {
   try {
     const result = await fetch(
