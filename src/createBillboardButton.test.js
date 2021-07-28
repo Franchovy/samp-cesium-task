@@ -8,6 +8,8 @@ import CreateBillboardButton, {
 } from "./createBillboardButton";
 import fetchMock from "jest-fetch-mock";
 
+// UI / UX testing
+
 describe("UI functionality check", () => {
   it("calls onButtonPressed once button has been clicked", () => {
     const onClick = jest.fn();
@@ -20,6 +22,9 @@ describe("UI functionality check", () => {
     expect(onClick).toHaveBeenCalled();
   });
 });
+
+// Functionality testing
+
 describe("Data handling based on API calls", () => {
   beforeEach(() => {
     fetchMock.resetMocks();
