@@ -1,45 +1,39 @@
+import React from "react";
 import { Color } from "cesium";
 import Cartesian2 from "cesium/Source/Core/Cartesian2";
 import NearFarScalar from "cesium/Source/Core/NearFarScalar";
 import VerticalOrigin from "cesium/Source/Scene/VerticalOrigin";
-import React from "react";
-
 import {
   Entity,
   BillboardGraphics,
   LabelGraphics,
   EntityDescription,
 } from "resium";
+
+import dateStringFormatter from "./utilities/dateStringFormatter";
 import logo from "./location.svg";
 
 const fadeScalar = new NearFarScalar(7000000.0, 1.0, 30000000.0, 0.2);
 
-/// Datestring formatter from JS Date object to customized string.
-function datestring(t) {
-  const date = ("0" + t.getDate()).slice(-2);
-  const monthNo = ("0" + (t.getMonth() + 1)).slice(-2);
-  const monthStr = [
-    "Jan",
-    "Feb",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "Sept",
-    "Oct",
-    "Nov",
-    "Dec",
-  ][monthNo - 1];
-  const year = t.getFullYear();
-  const hours = ("0" + t.getHours()).slice(-2);
-  const minutes = ("0" + t.getMinutes()).slice(-2);
-  const seconds = ("0" + t.getSeconds()).slice(-2);
-
-  return `${date} ${monthStr} ${year} at ${hours}:${minutes}:${seconds}`;
-}
-
-/// Resium/Cesium Billboard component function
+/**
+ * Component for rendering resium Billboard inside a Viewer.
+ * Rendered through *Entity* Component containing *EntityDescription*,
+ * *BillboardGraphics* (location marker icon), *LabelGraphics* (name + ?city)
+ * 
+ * @props
+ * *uid* - unique name for billboard
+ * *city* - name of city where billboard is positioned
+ * *creationDate* - JS Date object marking creation datetime
+ * *position* - Cesium Cartesian3 object marking location on globe
+ * *showCityLabel* - bool indicating whether label should display city 
+ * as well as unique name
+ * 
+ * @return <Entity key=uid name=uid>
+ *  <EntityDescription/>
+ *  <BillboardGraphics/>
+ *  <LabelGraphics/>
+ * </Entity>
+ */
 export default function Billboard(props) {
   var labelText = props.uid;
 
@@ -50,7 +44,7 @@ export default function Billboard(props) {
       <EntityDescription>
         <h2>{`ID: ${props.uid}`}</h2>
         <h3>{`City: ${props.city}`}</h3>
-        <p>{`Creation date: ${datestring(props.creationDate)}`}</p>
+        <p>{`Creation date: ${dateStringFormatter(props.creationDate)}`}</p>
       </EntityDescription>
       <LabelGraphics
         text={labelText}

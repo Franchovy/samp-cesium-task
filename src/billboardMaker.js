@@ -6,16 +6,57 @@ import Billboard from "./billboard";
 import CreateBillboardButton from "./createBillboardButton";
 import { Cartesian3 } from "cesium";
 
+
+/**
+ * (Main) Component class containing Resium Viewer, Create Billboard button,
+ * and Billboard children components
+ * 
+ * @props - none
+ * 
+ * @property state.billboardData contains data representing all billboards
+ * currently in the viewer. 
+ * 
+ * @method checkNameUnique checks name against all current billboards from 
+ * billboardData for uniqueness. Returns true if name is not found.
+ * 
+ * @method addBillboard takes in object with data 
+ * {
+ *  uid, 
+ *  city,
+ *  coords: 
+ *      {
+ *      latitude, 
+ *      longitude
+ *      }, 
+ *  error: 
+ *      {
+ *      message,
+ *      code
+ *      }
+ * }
+ * which is then transformed into billboard data object representing the creation
+ * of a new billboard component.
+ * 
+ * @return <BillboardMaker>
+ *    <div>
+ *      <Viewer>
+ *          <div>
+ *              <CreateBillboardButton/>
+ *          </div>
+ *          state.billboardData.map -> <Billboard/>
+ *      </Viewer>
+ *  </div>
+ */
 export default class BillboardMaker extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      billboardData: this.testBillboards(),
+      billboardData: this.demoBillboards(),
     };
   }
 
-  testBillboards() {
+  demoBillboards() {
     const position1 = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
     const position2 = Cartesian3.fromDegrees(74.0707383, 40.7117244, 100);
     const position3 = Cartesian3.fromDegrees(-74.0707383, -40.7117244, 100);
