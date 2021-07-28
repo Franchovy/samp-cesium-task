@@ -1,5 +1,7 @@
 import styles from "./App.css";
 
+import Billboards from './billboards';
+
 export async function fetchCityCoordinates(city) {
   try {
     const result = await fetch(
@@ -7,14 +9,22 @@ export async function fetchCityCoordinates(city) {
     );
     const data = await result.json();
     
+    if (data.length === 0) {
+      // No match
+      return {"error": {"message": "no match found"}};
+    }
+
     const coords = {
       latitude: parseFloat(data[0].lat), 
       longitude: parseFloat(data[0].lon)
     };
-    console.log(`Coordinates: ${coords}`);
-    return (coords);
+    
+    return {"error": null, coords: coords};
   } catch (e) {
-    return null;
+
+    console.log(`Other error: ${e.json()}`);
+    // Other error occured
+    return {"error": {"message": e.message}};
   }
 }
 
@@ -28,32 +38,60 @@ function toTitleCase(str) {
 }
 
 export default function CreateBillboardButton(props) {
+
+  /** Function to be called to handle click 
+   /* Accept input from user through prompts
+   /* Validate input 
+   /* @return billboard info
+  */
   async function handleButtonClick() {
     const enteredName = prompt("Please enter a unique name for your billboard");
     const enteredCity = prompt("Please enter a city name");
 
     if (enteredName !== null && enteredCity !== null) {
-      var errorText = null;
-      // Validate input
+      var error;
+
+      // Validate input: One or more fields are empty
       if (enteredName === "")
-        errorText = "You must enter a unique name for your billboard.";
+        error = { "error": {"message": "You must enter a unique name for your billboard.", "code": "EMPTY_FIELD"}};
       if (enteredCity === "")
-        errorText = "You must enter a city for your billboard.";
-
-      // if error:
-      if (errorText !== null) alert("Error: " + errorText);
-
-      // if Valid:
-      var result = await fetchCityCoordinates(enteredCity);
-      if (result != null) {
-        props.onButtonPressed(
-          {
-            uid: enteredName,
-            city: toTitleCase(enteredCity), 
-            coords: result});
-      } else {
-        props.onButtonPressed({"error": "No city found for this name."});
+        error = { "error": {"message": "You must enter a city for your billboard.", "code": "EMPTY_FIELD"}};
+        
+      // Check for error: Name not unique
+      if (Billboards.instance === null) {
+        console.log("Billboards static instance is null");
+      } else
+      if (!Billboards.instance.containsUniqueID(enteredName)) {
+        error = { "error": {"message": "The name for your billboard must be unique.", "code": "NAME_NOT_UNIQUE"}};
       }
+
+      // Fetch city coordinates
+      var fetchCityResult = await fetchCityCoordinates(enteredCity);
+      console.log(`Result: ${JSON.stringify(fetchCityResult)}`);
+      
+      if (fetchCityResult.error !== null) {
+        if (fetchCityResult.error.message === "no match found") {
+          error = { "error": {"message": "No match found for the city you entered.", "code": "CITY_NOT_FOUND"}};
+        } else {
+          error = {"error": {"message": fetchCityResult.error.message, "code": "OTHER_ERROR"}};
+        }
+      }
+
+      // If error occurred, alert and return
+      if (error) {
+        console.log(`Error: ${JSON.stringify(error)}`);
+        props.onButtonPressed(error);
+        return;
+      }
+      
+      // Else 
+      // Process result into data for billboard
+      props.onButtonPressed(
+        {
+          uid: enteredName,
+          city: toTitleCase(enteredCity), 
+          coords: fetchCityResult.coords
+        });
     }
   }
 

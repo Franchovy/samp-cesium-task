@@ -22,8 +22,16 @@ export default function BillboardContainer(props) {
     billboards.push(...testItems);
   }
 
-  // add billboard function
+  // Add billboard callback function
   function addBillboard(result) {
+    console.log(`Result: ${JSON.stringify(result)}`);
+    
+    if (result.error) {
+      // Error handling
+      alert("Error: " + result.error.message);
+      return;
+    }
+
     setBillboards([
       ...billboards,
       {
