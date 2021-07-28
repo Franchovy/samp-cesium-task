@@ -56,34 +56,34 @@ export default class BillboardMaker extends React.Component {
   }
 
   demoBillboards() {
-    const position1 = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
-    const position2 = Cartesian3.fromDegrees(74.0707383, 40.7117244, 100);
-    const position3 = Cartesian3.fromDegrees(-74.0707383, -40.7117244, 100);
-    const position4 = Cartesian3.fromDegrees(74.0707383, -40.7117244, 100);
+    const posKrakow = Cartesian3.fromDegrees(19.944981, 50.064651, 1);
+    const posTokyo = Cartesian3.fromDegrees(139.691711, 35.689487, 1);
+    const posChennai = Cartesian3.fromDegrees(80.270721, 13.082680, 1);
+    const posTorino = Cartesian3.fromDegrees(7.686864, 45.070339, 1);
 
     return [
       {
-        uid: "test1",
-        city: "city",
-        position: position1,
+        uid: "Krakow",
+        city: "krakow",
+        position: posKrakow,
         creationDate: new Date(),
       },
       {
-        uid: "test2",
-        city: "city",
-        position: position2,
+        uid: "Tokyo",
+        city: "Tokyo",
+        position: posTokyo,
         creationDate: new Date(),
       },
       {
-        uid: "test3",
-        city: "city",
-        position: position3,
+        uid: "Chennai",
+        city: "Chennai",
+        position: posChennai,
         creationDate: new Date(),
       },
       {
-        uid: "test4",
-        city: "city",
-        position: position4,
+        uid: "Torino",
+        city: "Torino",
+        position: posTorino,
         creationDate: new Date(),
       },
     ];
