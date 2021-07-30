@@ -1,4 +1,8 @@
-/// Datestring formatter from JS Date object to customized string.
+/**
+ * Customized date to string formatter
+ * @parameter t - JS Date object
+ * @return string with format: "[dd] [shortMonthString] [yyyy] at [hh]:[mm]:[ss]"
+ */ 
 export default function dateStringFormatter(t) {
   const date = ("0" + t.getDate()).slice(-2);
   const monthNo = ("0" + (t.getMonth() + 1)).slice(-2);
@@ -10,6 +14,7 @@ export default function dateStringFormatter(t) {
     "May",
     "June",
     "July",
+    "August",
     "Sept",
     "Oct",
     "Nov",
