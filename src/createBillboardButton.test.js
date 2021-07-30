@@ -3,50 +3,38 @@ import "@testing-library/jest-dom";
 
 import * as React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
-import CreateBillboardButton, {
-  fetchCityCoordinates,
-} from "./createBillboardButton";
-import fetchMock from "jest-fetch-mock";
+import CreateBillboardButton from "./createBillboardButton";
 
 // UI / UX testing
 
 describe("UI functionality check", () => {
-  it("calls onButtonPressed once button has been clicked", () => {
+  it("Check if prompt appears on click", () => {
     const onClick = jest.fn();
     const { getByText } = render(
-      <CreateBillboardButton onButtonPressed={onClick} />
+      <CreateBillboardButton onButtonPressed={onClick} checkNameUnique={(name) => true} />
+    );
+
+    window.prompt = jest.fn().mockImplementation(() => true);
+    fireEvent.click(getByText(/Create Billboard/i));
+
+    expect(window.prompt).toHaveBeenCalled();
+  });
+
+  it("Check return value for correct input", () => {
+    const onClick = jest.fn();
+    const { getByText } = render(
+      <CreateBillboardButton onButtonPressed={onClick} checkNameUnique={(name) => true} />
     );
 
     fireEvent.click(getByText(/Create Billboard/i));
+  
+    // must fire events for text input as well.
 
-    expect(onClick).toHaveBeenCalled();
+    /*expect(onClick).toHaveReturnedWith({
+      uid: "unique name",
+      city: "Torino",
+      coords: {longitude: 7.686864, latitude: 45.070339},
+    });*/
   });
 });
 
-// Functionality testing
-
-describe("Data handling based on API calls", () => {
-  beforeEach(() => {
-    fetchMock.resetMocks();
-  });
-
-  it("get coordinates for city", async () => {
-    fetchMock.mockResponseOnce(
-      JSON.stringify([{ lat: "41.8933203", lon: "12.4829321" }])
-    );
-
-    const response = await fetchCityCoordinates("Rome");
-
-    expect(response.coordinates).toEqual((41.8933203, 12.4829321));
-    expect(fetchCityCoordinates).toHaveBeenCalledTimes(1);
-  });
-
-  it("no matches found for city", async () => {
-    fetchMock.mockResponseOnce(JSON.stringify([]));
-
-    const response = await fetchCityCoordinates("Rome");
-
-    expect(response.error).toEqual("No city found that matches that name.");
-    expect(fetchCityCoordinates).toHaveBeenCalledTimes(1);
-  });
-});
